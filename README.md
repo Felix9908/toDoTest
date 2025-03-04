@@ -1,54 +1,61 @@
-# React + TypeScript + Vite
+# Task Manager App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+¡Bienvenido a **Task Manager**! Esta es una aplicación web para gestionar tareas, desarrollada con **React**, **Vite**, **Tailwind CSS** y **JSON Server**. Permite crear, marcar como completadas y visualizar tareas de manera sencilla.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## **Características principales**
 
-## Expanding the ESLint configuration
+- **Crear tareas**: Añade nuevas tareas con un título y una descripción.
+- **Marcar como completadas**: Marca o desmarca tareas como completadas.
+- **Listas separadas**: Las tareas se dividen en "Pendientes" y "Completadas".
+- **Persistencia de datos**: Las tareas se guardan en un archivo `db.json` usando JSON Server.
+- **Interfaz moderna**: Diseño responsivo y atractivo gracias a Tailwind CSS.
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+---
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+## **Tecnologías utilizadas**
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Frontend**:
+  - React
+  - Vite
+  - Tailwind CSS
+  - React Router (para la navegación entre vistas)
+- **Backend**:
+  - JSON Server (simulación de API REST)
+- **Herramientas**:
+  - TypeScript
+  - Fetch API (para las solicitudes HTTP)
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+## **Instalación y configuración**
+
+Sigue estos pasos para configurar y ejecutar la aplicación en tu entorno local.
+
+### **Requisitos previos**
+
+- Node.js (v16 o superior)
+- npm (v8 o superior)
+
+### **Pasos para ejecutar la aplicación**
+
+1. **Clona el repositorio**:
+
+   git clone https://github.com/tu-usuario/task-manager-app.git
+   cd task-manager-app
+
+2. **Instala las dependencias**:
+
+   npm install
+
+3. **Inicia JSON Server**:
+   
+   Asegúrate de tener un archivo db.json en la raíz del proyecto con la siguiente estructura
+   Inicia JSON Server en el puerto 3001: json-server --watch db.json --port 3001
+     
+
+3. **Inicia la aplicación**:
+   
+   En una terminal separada, ejecuta: npm run dev
+  

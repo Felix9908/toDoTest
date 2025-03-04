@@ -13,7 +13,7 @@ interface TaskContextType {
   loading: boolean;
   error: string | null;
   toggleTaskCompletion: (taskId: number) => Promise<void>;
-  addTask: (title: string, description: string) => Promise<void>; // Nueva función
+  addTask: (title: string, description: string) => Promise<void>;
 }
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
@@ -23,7 +23,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Obtener las tareas al cargar el componente
+  // Obtener las tareas al cargar el componente (solo una vez)
   useEffect(() => {
     const loadTasks = async () => {
       try {
@@ -37,7 +37,7 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     };
     loadTasks();
-  }, []);
+  }, []); // <-- Sin dependencias, se ejecuta solo una vez
 
   // Función para marcar una tarea como completada o no completada
   const toggleTaskCompletion = async (taskId: number) => {
@@ -45,21 +45,22 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
       const task = tasks.find((t) => t.id === taskId);
       if (task) {
         const updatedTask = await updateTask(taskId, { completed: !task.completed });
+        
         setTasks((prevTasks) =>
           prevTasks.map((t) => (t.id === taskId ? updatedTask : t))
         );
       }
     } catch (error) {
-      console.log(error);
+      console.error("Error al actualizar la tarea:", error);
       setError("Error al actualizar la tarea");
     }
-  };
+  };  
 
   // Función para agregar una nueva tarea
   const addTask = async (title: string, description: string) => {
     try {
       const newTask = await createTask({ title, description });
-      setTasks((prevTasks) => [...prevTasks, newTask]); // Agregar la nueva tarea al estado
+      setTasks((prevTasks) => [...prevTasks, newTask]);
     } catch (error) {
       console.log(error);
       setError("Error al crear la tarea");
