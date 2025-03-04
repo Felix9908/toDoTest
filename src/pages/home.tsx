@@ -7,7 +7,6 @@ const Home = () => {
   const navigate = useNavigate();
   const { tasks, loading, error, toggleTaskCompletion } = useTasks();
 
-  // Filtrar tareas no completadas y completadas
   const incompleteTasks = tasks.filter((task) => !task.completed);
   const completedTasks = tasks.filter((task) => task.completed);
 
@@ -17,10 +16,8 @@ const Home = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
-      {/* Header */}
       <Header title="Jose Antonio" />
 
-      {/* Header personalizado para "Mis tareas" */}
       <div className="flex justify-between items-center p-4 mb-6 border-b-2 border-black">
         <h1 className="text-2xl font-bold">Mis tareas</h1>
         <button
@@ -31,7 +28,6 @@ const Home = () => {
         </button>
       </div>
 
-      {/* Contenedor de tareas no completadas */}
       <div className="mb-8">
         <div className="mt-4">
           {loading ? (
@@ -51,7 +47,6 @@ const Home = () => {
         </div>
       </div>
 
-      {/* Contenedor de tareas completadas */}
       <div>
         <div className="flex justify-between items-center p-4 border-b-2 border-black">
           <h2 className="text-xl font-semibold">Tareas completadas</h2>

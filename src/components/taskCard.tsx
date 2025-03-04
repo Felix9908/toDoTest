@@ -5,23 +5,15 @@ interface TaskCardProps {
 }
 
 const TaskCard = ({ title, completed, onToggle }: TaskCardProps) => {
-  const handleCheckboxChange = () => {
-    onToggle();
-  };
-
   return (
-    <div
-      style={{ border: "1px solid black" }}
-      className="p-2 m-2 rounded-lg flex items-center gap-4"
-    >
-      {/* Checkbox */}
+    <div className="p-2 m-2 border border-black rounded-lg flex items-center gap-4">
+      {/* Checkbox con palomita negra y fondo blanco */}
       <input
         type="checkbox"
         checked={completed}
-        onChange={handleCheckboxChange}
-        className="w-5 h-5"
+        onChange={onToggle}
+        className="w-5 h-5 border border-black rounded bg-white accent-black"
       />
-      {/* Título de la tarea */}
       <h2 className={`text-lg ${completed ? "line-through" : ""}`}>{title}</h2>
     </div>
   );

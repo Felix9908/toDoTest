@@ -43,20 +43,17 @@ export const updateTask = async (
   updatedTask: { completed: boolean }
 ) => {
   try {
-    // Obtener la tarea actual para preservar el título y la descripción
     const currentTaskResponse = await fetch(`${API_URL}/${taskId}`);
     if (!currentTaskResponse.ok) {
       throw new Error("Error al obtener la tarea actual");
     }
     const currentTask = await currentTaskResponse.json();
 
-    // Combinar la tarea actual con los campos actualizados
     const fullUpdatedTask = {
       ...currentTask,
       ...updatedTask,
     };
 
-    // Enviar la solicitud PUT con la tarea completa
     const response = await fetch(`${API_URL}/${taskId}`, {
       method: "PUT",
       headers: {

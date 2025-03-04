@@ -8,9 +8,36 @@ const NewTask = () => {
 
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
+  const [error, setError] = useState("");
+
+  const isValidInput = (text: string) => /^[a-zA-Z0-9\s]+$/.test(text);
+
+  const handleTitleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    if (value === "" || isValidInput(value)) {
+      setTitle(value);
+      setError("");
+    } else {
+      setError("Solo se permiten letras y números.");
+    }
+  };
+
+  const handleDescriptionChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    const value = e.target.value;
+    if (value === "" || isValidInput(value)) {
+      setDescription(value);
+      setError("");
+    } else {
+      setError("Solo se permiten letras y números.");
+    }
+  };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!title || !description) {
+      setError("Los campos no pueden estar vacíos.");
+      return;
+    }
     try {
       await addTask(title, description);
       navigate("/");
@@ -21,52 +48,49 @@ const NewTask = () => {
 
   return (
     <div className="w-full max-w-4xl mx-auto p-4">
-      {/* Header con botón "Atrás" */}
       <div className="flex items-center p-4 border-b-2 border-black">
         <button
-          onClick={() => navigate(-1)} // Navega a la vista anterior
+          onClick={() => navigate(-1)} 
           className="text-lg font-semibold hover:text-gray-600"
         >
           &lt; Atrás
         </button>
       </div>
 
-      {/* Formulario para añadir una nueva tarea */}
       <form onSubmit={handleSubmit} className="mt-6">
-        {/* Input para el título */}
         <div className="mb-6">
-        <div className="flex justify-between items-center p-4 border-black">
-          <h2 className="text-xl font-semibold">Titulo de la tarea</h2>
-        </div>
+          <div className="flex justify-between items-center p-4">
+            <h2 className="text-xl font-semibold">Título de la tarea</h2>
+          </div>
           <input
             type="text"
             placeholder="Título"
             value={title}
-            onChange={(e) => setTitle(e.target.value)}
-            className="w-full p-3 border-2 border-black rounded-lg focus:outline-none focus:border-blue-500"
+            onChange={handleTitleChange}
+            className="w-full p-3 border border-black rounded-lg focus:outline-none focus:border-blue-500"
             required
           />
         </div>
 
-        {/* Textarea para la descripción */}
         <div className="mb-6">
-        <div className="flex justify-between items-center p-4 border-black">
-          <h2 className="text-xl font-semibold">Descripciòn de la tarea</h2>
-        </div>
+          <div className="flex justify-between items-center p-4">
+            <h2 className="text-xl font-semibold">Descripción de la tarea</h2>
+          </div>
           <textarea
             placeholder="Descripción"
             value={description}
-            onChange={(e) => setDescription(e.target.value)}
-            className="w-full p-3 h-82 border-2 border-black rounded-lg focus:outline-none focus:border-blue-500"
+            onChange={handleDescriptionChange}
+            className="w-full p-3 h-82 border border-black rounded-lg focus:outline-none focus:border-blue-500"
             rows={4}
             required
           />
         </div>
 
-        {/* Botón de guardar */}
+        {error && <p className="text-red-500 text-sm font-semibold">{error}</p>}
+
         <button
           type="submit"
-          className="w-full border-2 border-black font-semibold text-black p-3 rounded-lg hover:bg-gray-800 transition-colors"
+          className="w-full border border-black font-semibold text-black p-3 rounded-lg hover:bg-gray-800 hover:text-white transition-colors"
         >
           Guardar
         </button>

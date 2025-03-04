@@ -23,7 +23,6 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Obtener las tareas al cargar el componente (solo una vez)
   useEffect(() => {
     const loadTasks = async () => {
       try {
@@ -37,9 +36,8 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
       }
     };
     loadTasks();
-  }, []); // <-- Sin dependencias, se ejecuta solo una vez
+  }, []);
 
-  // Función para marcar una tarea como completada o no completada
   const toggleTaskCompletion = async (taskId: number) => {
     try {
       const task = tasks.find((t) => t.id === taskId);
@@ -56,7 +54,6 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
   };  
 
-  // Función para agregar una nueva tarea
   const addTask = async (title: string, description: string) => {
     try {
       const newTask = await createTask({ title, description });
@@ -76,7 +73,6 @@ export const TaskProvider: React.FC<{ children: React.ReactNode }> = ({ children
   );
 };
 
-// Hook personalizado para usar el contexto
 export const useTasks = () => {
   const context = useContext(TaskContext);
   if (!context) {
