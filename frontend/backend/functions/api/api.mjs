@@ -1,13 +1,21 @@
-const server = jsonServer.create();
-const router = jsonServer.router("../db.json");
-const middlewares = jsonServer.defaults();
+import fs from "fs";
+import path from "path";
 
-server.use(middlewares);
-server.use(router);
+export default async (request, context) => {
+  try {
+    const dbPath = path.join(process.cwd(), "backend/functions/api/db.json");
 
-exports.handler = async (event, context) => {
-  return {
-    statusCode: 200,
-    body: JSON.stringify(router.db.getState().tasks), 
-  };
+    const dbData = fs.readFileSync(dbPath, "utf-8");
+
+    const tasks = JSON.parse(dbData).tasks;
+
+    return new Response(JSON.stringify(tasks), {
+      headers: { "Content-Type": "application/json" },
+    });
+  } catch (error) {
+    return new Response(error.toString(), {
+      status: 500,
+      headers: { "Content-Type": "text/plain" },
+    });
+  }
 };
