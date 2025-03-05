@@ -4,5 +4,4 @@
   command = "npm run build" 
 
 [functions]
-  base = "backend"  
-  directory = "functions"
+  directory = "backend/functions"
