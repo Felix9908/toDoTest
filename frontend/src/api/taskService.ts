@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:3001/tasks";
+const API_URL = "/.netlify/functions/api/tasks";
 
 // Obtener todas las tareas
 export const fetchTasks = async () => {
