@@ -7,7 +7,6 @@ interface TaskCardProps {
 const TaskCard = ({ title, completed, onToggle }: TaskCardProps) => {
   return (
     <div className="p-2 m-2 border border-black rounded-lg flex items-center gap-4">
-      {/* Checkbox con palomita negra y fondo blanco */}
       <input
         type="checkbox"
         checked={completed}
