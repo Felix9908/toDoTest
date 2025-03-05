@@ -1,3 +1,4 @@
+const jsonServer = require("json-server");
 const server = jsonServer.create();
 const router = jsonServer.router("../db.json");
 const middlewares = jsonServer.defaults();
@@ -8,6 +9,6 @@ server.use(router);
 exports.handler = async (event, context) => {
   return {
     statusCode: 200,
-    body: JSON.stringify(router.db.getState().tasks),
+    body: JSON.stringify(router.db.getState().tasks), // Devuelve las tareas
   };
 };
